@@ -52,6 +52,7 @@ function App(): JSX.Element {
       setIsModalOpened(true);
     } catch (error) {
       toast({
+        id: "errorToast",
         title: `Não foi possível acessar o perfil deste usuário.`,
         status: "error",
         isClosable: true,

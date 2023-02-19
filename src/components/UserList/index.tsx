@@ -31,6 +31,7 @@ const UserList: React.FC<Props> = ({ users, handleUserClick }) => {
 
   return (
     <Grid
+      id={"grid"}
       templateColumns={{
         base: "1fr",
         md: "repeat(3, 1fr)",
@@ -43,13 +44,25 @@ const UserList: React.FC<Props> = ({ users, handleUserClick }) => {
       {users.map((user) => (
         <GridItem
           as={Card}
+          id={"grid-item"}
           maxW="sm"
           key={user.id}
           onClick={() => handleUserClick(user.login)}
           _hover={{ cursor: "pointer" }}
         >
-          <CardBody>
-            <Image src={user.avatar_url} alt={user.login} borderRadius="lg" />
+          <CardBody
+            display={"flex"}
+            flexDir="column"
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
+            <Image
+              src={user.avatar_url}
+              alt={user.login}
+              borderRadius="lg"
+              w={"80%"}
+              h={"80%"}
+            />
             <Text mt={5} fontWeight={700}>
               {user.login}
             </Text>

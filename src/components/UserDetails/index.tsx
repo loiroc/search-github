@@ -36,6 +36,7 @@ const UserDetails: React.FC<Props> = ({ user, handleClose, isOpen }) => {
       isOpen={isOpen}
       onClose={handleClose}
       size={{ base: "sm", md: "lg" }}
+      id={"modal"}
     >
       <ModalOverlay />
       <ModalContent>
@@ -56,24 +57,31 @@ const UserDetails: React.FC<Props> = ({ user, handleClose, isOpen }) => {
               h={200}
               w={200}
             />
-            <Heading>{user.login}</Heading>
+            <Heading mt={5} id={"modal-user"}>
+              {user.login}
+            </Heading>
           </Box>
-          <Text>
+          <Text id={"modal-name"}>
             <b>Nome:</b> {user.name}
           </Text>
-          <Text>
+          <Text id={"modal-location"}>
             <b>Localização:</b> {user.location ? user.location : "Indisponível"}
           </Text>
-          <Text>
+          <Text id={"modal-email"}>
             <b>Email:</b> {user.email ? user.email : "Indisponível"}
           </Text>
-          <Text>
+          <Text id={"modal-repos"}>
             <b>Repositórios Públicos:</b> {user.public_repos}
           </Text>
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={handleClose}>
+          <Button
+            id={"modal-close"}
+            colorScheme="blue"
+            mr={3}
+            onClick={handleClose}
+          >
             Fechar
           </Button>
         </ModalFooter>
