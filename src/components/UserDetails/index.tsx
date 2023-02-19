@@ -1,5 +1,8 @@
 import {
+  Box,
   Button,
+  Heading,
+  Image,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -13,6 +16,7 @@ import React from "react";
 
 interface User {
   id?: number;
+  avatar_url?: string;
   login: string;
   name: string;
   location: string;
@@ -34,11 +38,14 @@ const UserDetails: React.FC<Props> = ({ user, handleClose, isOpen }) => {
         <ModalHeader>Informações do usuário</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Text>Usuário: {user.login}</Text>
-          <Text>Nome: {user.name}</Text>
-          <Text>Localização: {user.location ? user.location : 'Indisponível'}</Text>
-          <Text>Email: {user.email ? user.email : 'Indisponível'}</Text>
-          <Text>Repositórios Públicos: {user.public_repos}</Text>
+          <Box display={'flex'} flexDir={'column'} alignItems={'center'} justifyContent={'center'} mb={10}>
+            <Image src={user.avatar_url} alt={user.login} borderRadius={'50%'} h={200} w={200} />
+            <Heading>{user.login}</Heading>
+          </Box>
+          <Text><b>Nome:</b> {user.name}</Text>
+          <Text><b>Localização:</b> {user.location ? user.location : 'Indisponível'}</Text>
+          <Text><b>Email:</b> {user.email ? user.email : 'Indisponível'}</Text>
+          <Text><b>Repositórios Públicos:</b> {user.public_repos}</Text>
         </ModalBody>
 
         <ModalFooter>
