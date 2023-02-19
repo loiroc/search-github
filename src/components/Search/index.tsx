@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import UserList from "../UserList";
 import UserDetails from "../UserDetails";
+import Error from "../Error";
 
 interface User {
   login: string;
@@ -74,7 +75,7 @@ function App(): JSX.Element {
           </button>
         )}
       </form>
-      {error && <></>}
+      {error && <Error message={error} />}
       {selectedUser && <UserDetails user={selectedUser} handleClose={resetSearch} />}
       {users.length > 0 && !selectedUser && (
          <UserList users={users} handleUserClick={selectUser} />
