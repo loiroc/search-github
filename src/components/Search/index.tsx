@@ -63,26 +63,59 @@ function App(): JSX.Element {
   };
 
   return (
-    <Box className="App">
-      <Heading>Pesquisa de Usuários do Github</Heading>
-      <form onSubmit={searchUsers}>
+    <Box
+      className="App"
+      display={"flex"}
+      flexDir={"column"}
+      alignItems={"center"}
+      justifyContent={"center"}
+    >
+      <Heading margin={'20px 0'}>Pesquisa de Usuários do Github</Heading>
+      <form
+        onSubmit={searchUsers}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "10px",
+          margin: "10px 0px",
+        }}
+      >
         <Input
           type="text"
           placeholder="Digite o nome do usuário do Github"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          width={"500px"}
         />
-        <Button type="submit">Pesquisar</Button>
-        {users.length > 0 && (
-          <Button type="button" onClick={resetSearch}>
+        <Box display={"flex"} gap={5}>
+          <Button type="submit" colorScheme={"green"}>
+            Pesquisar
+          </Button>
+
+          <Button
+            type="button"
+            colorScheme={"red"}
+            onClick={resetSearch}
+            isDisabled={users.length <= 0}
+          >
             Limpar Pesquisa
           </Button>
-        )}
+        </Box>
       </form>
       {error && <Error message={error} />}
-      {selectedUser && <UserDetails user={selectedUser} handleClose={() => { setIsModalOpened(false) }} isOpen={isModalOpened} />}
+      {selectedUser && (
+        <UserDetails
+          user={selectedUser}
+          handleClose={() => {
+            setIsModalOpened(false);
+          }}
+          isOpen={isModalOpened}
+        />
+      )}
       {users.length > 0 && (
-         <UserList users={users} handleUserClick={selectUser} />
+        <UserList users={users} handleUserClick={selectUser} />
       )}
     </Box>
   );
