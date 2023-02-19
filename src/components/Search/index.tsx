@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import UserList from "../UserList";
 import UserDetails from "../UserDetails";
-import Error from "../Error";
-import { Box, Button, Heading, Input } from "@chakra-ui/react";
+import { Box, Button, Heading, Input, useToast } from "@chakra-ui/react";
 
 interface User {
   login: string;
@@ -24,7 +23,8 @@ function App(): JSX.Element {
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<UserDetails | null>(null);
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+
+  const toast = useToast();
 
   const searchUsers = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,9 +33,12 @@ function App(): JSX.Element {
         `https://api.github.com/search/users?q=${query}`
       );
       setUsers(response.data.items);
-      setError(null);
     } catch (error) {
-      setError("Não foi possível realizar a pesquisa.");
+      toast({
+        title: `Não foi possível realizar a pesquisa.`,
+        status: "error",
+        isClosable: true,
+      });
       setUsers([]);
     }
   };
@@ -47,9 +50,12 @@ function App(): JSX.Element {
       );
       setSelectedUser(response.data);
       setIsModalOpened(true);
-      setError(null);
     } catch (error) {
-      setError("Não foi possível encontrar informações deste usuário.");
+      toast({
+        title: `Não foi possível acessar o perfil deste usuário.`,
+        status: "error",
+        isClosable: true,
+      });
       setSelectedUser(null);
       setIsModalOpened(false);
     }
@@ -59,7 +65,6 @@ function App(): JSX.Element {
     setQuery("");
     setUsers([]);
     setSelectedUser(null);
-    setError(null);
   };
 
   return (
@@ -70,7 +75,7 @@ function App(): JSX.Element {
       alignItems={"center"}
       justifyContent={"center"}
     >
-      <Heading margin={'20px 0'}>Pesquisa de Usuários do Github</Heading>
+      <Heading margin={"20px 0"}>Pesquisa de Usuários do Github</Heading>
       <form
         onSubmit={searchUsers}
         style={{
@@ -104,7 +109,6 @@ function App(): JSX.Element {
           </Button>
         </Box>
       </form>
-      {error && <Error message={error} />}
       {selectedUser && (
         <UserDetails
           user={selectedUser}
