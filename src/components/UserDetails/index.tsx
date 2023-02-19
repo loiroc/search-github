@@ -32,20 +32,44 @@ interface Props {
 
 const UserDetails: React.FC<Props> = ({ user, handleClose, isOpen }) => {
   return (
-    <Modal isOpen={isOpen} onClose={handleClose} size={{ base: 'sm', md: 'lg' }}>
+    <Modal
+      isOpen={isOpen}
+      onClose={handleClose}
+      size={{ base: "sm", md: "lg" }}
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Informações do usuário</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Box display={'flex'} flexDir={'column'} alignItems={'center'} justifyContent={'center'} mb={10}>
-            <Image src={user.avatar_url} alt={user.login} borderRadius={'50%'} h={200} w={200} />
+          <Box
+            display={"flex"}
+            flexDir={"column"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            mb={10}
+          >
+            <Image
+              src={user.avatar_url}
+              alt={user.login}
+              borderRadius={"50%"}
+              h={200}
+              w={200}
+            />
             <Heading>{user.login}</Heading>
           </Box>
-          <Text><b>Nome:</b> {user.name}</Text>
-          <Text><b>Localização:</b> {user.location ? user.location : 'Indisponível'}</Text>
-          <Text><b>Email:</b> {user.email ? user.email : 'Indisponível'}</Text>
-          <Text><b>Repositórios Públicos:</b> {user.public_repos}</Text>
+          <Text>
+            <b>Nome:</b> {user.name}
+          </Text>
+          <Text>
+            <b>Localização:</b> {user.location ? user.location : "Indisponível"}
+          </Text>
+          <Text>
+            <b>Email:</b> {user.email ? user.email : "Indisponível"}
+          </Text>
+          <Text>
+            <b>Repositórios Públicos:</b> {user.public_repos}
+          </Text>
         </ModalBody>
 
         <ModalFooter>
