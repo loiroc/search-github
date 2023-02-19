@@ -3,25 +3,12 @@ import axios from "axios";
 import UserList from "./components/UserList";
 import UserDetails from "./components/UserDetails";
 import { Box, Button, Heading, Input, useToast } from "@chakra-ui/react";
-
-interface User {
-  login: string;
-  avatar_url: string;
-  html_url: string;
-}
-
-interface UserDetails {
-  name: string;
-  login: string;
-  location: string;
-  email: string;
-  public_repos: number;
-}
+import { User } from './types';
 
 function App(): JSX.Element {
   const [query, setQuery] = useState<string>("");
   const [users, setUsers] = useState<User[]>([]);
-  const [selectedUser, setSelectedUser] = useState<UserDetails | null>(null);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
 
   const toast = useToast();
@@ -45,7 +32,7 @@ function App(): JSX.Element {
 
   const selectUser = async (username: string) => {
     try {
-      const response = await axios.get<UserDetails>(
+      const response = await axios.get<User>(
         `https://api.github.com/users/${username}`
       );
       setSelectedUser(response.data);

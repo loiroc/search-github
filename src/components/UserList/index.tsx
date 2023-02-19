@@ -1,29 +1,16 @@
 import {
-  Box,
   Card,
   CardBody,
   Divider,
   Grid,
   GridItem,
-  Heading,
   Image,
   Text,
 } from "@chakra-ui/react";
 import React from "react";
+import { UserListProps } from "../../types";
 
-interface User {
-  id?: number;
-  login: string;
-  avatar_url: string;
-  html_url: string;
-}
-
-interface Props {
-  users: User[];
-  handleUserClick: (user: string) => void;
-}
-
-const UserList: React.FC<Props> = ({ users, handleUserClick }) => {
+const UserList: React.FC<UserListProps> = ({ users, handleUserClick }) => {
   const formatLink = (link: string) => {
     let formatedLink = link.split("://")[1];
     return formatedLink;

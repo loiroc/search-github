@@ -13,24 +13,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
+import { UserDetailsProps } from "../../types";
 
-interface User {
-  id?: number;
-  avatar_url?: string;
-  login: string;
-  name: string;
-  location: string;
-  email: string;
-  public_repos: number;
-}
-
-interface Props {
-  user: User;
-  handleClose: () => void;
-  isOpen: boolean;
-}
-
-const UserDetails: React.FC<Props> = ({ user, handleClose, isOpen }) => {
+const UserDetails: React.FC<UserDetailsProps> = ({ user, handleClose, isOpen }) => {
   return (
     <Modal
       isOpen={isOpen}
