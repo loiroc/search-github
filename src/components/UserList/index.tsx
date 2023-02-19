@@ -24,8 +24,14 @@ interface Props {
 }
 
 const UserList: React.FC<Props> = ({ users, handleUserClick }) => {
+
+  const formatLink = (link: string) => { 
+    let formatedLink = link.split('://')[1]
+    return formatedLink;
+  }
+
   return (
-      <Grid templateColumns={'repeat(5, 1fr)'} templateRows={'auto'} gap={5} m={5}>
+      <Grid templateColumns={{base: '1fr', md: 'repeat(3, 1fr)', lg: 'repeat(5, 1fr)'}} templateRows={'auto'} gap={5} m={5}>
         {users.map((user) => (
           <GridItem
             as={Card}
@@ -36,9 +42,8 @@ const UserList: React.FC<Props> = ({ users, handleUserClick }) => {
           >
             <CardBody>
               <Image src={user.avatar_url} alt={user.login} borderRadius="lg" />
-
-              <Text>{user.login}</Text>
-              <Text>{user.html_url}</Text>
+              <Text mt={5} fontWeight={700}>{user.login}</Text>
+              <Text fontStyle={'italic'}>{formatLink(user.html_url)}</Text>
             </CardBody>
             <Divider />
           </GridItem>

@@ -75,7 +75,7 @@ function App(): JSX.Element {
       alignItems={"center"}
       justifyContent={"center"}
     >
-      <Heading margin={"20px 0"}>Pesquisa de Usuários do Github</Heading>
+      <Heading margin={"20px 0"} textAlign={'center'}>Pesquisa de Usuários do Github</Heading>
       <form
         onSubmit={searchUsers}
         style={{
@@ -92,7 +92,7 @@ function App(): JSX.Element {
           placeholder="Digite o nome do usuário do Github"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          width={"500px"}
+          w={'100%'}
         />
         <Box display={"flex"} gap={5}>
           <Button type="submit" colorScheme={"green"}>

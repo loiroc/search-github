@@ -32,7 +32,7 @@ interface Props {
 
 const UserDetails: React.FC<Props> = ({ user, handleClose, isOpen }) => {
   return (
-    <Modal isOpen={isOpen} onClose={handleClose}>
+    <Modal isOpen={isOpen} onClose={handleClose} size={{ base: 'sm', md: 'lg' }}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Informações do usuário</ModalHeader>
