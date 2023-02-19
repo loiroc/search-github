@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface User {
-  id: number;
+  id?: number;
   login: string;
   avatar_url: string;
   html_url: string;
@@ -9,7 +9,7 @@ interface User {
 
 interface Props {
   users: User[];
-  handleUserClick: (user: User) => void;
+  handleUserClick: (user: string) => void;
 }
 
 const UserList: React.FC<Props> = ({ users, handleUserClick }) => {
@@ -19,7 +19,7 @@ const UserList: React.FC<Props> = ({ users, handleUserClick }) => {
       <ul>
         {users.map(user => (
           <li key={user.id}>
-            <a href="#" onClick={() => handleUserClick(user)}>
+            <a href="#" onClick={() => handleUserClick(user.login)}>
               <img src={user.avatar_url} alt={user.login} />
               <div>
                 <h3>{user.login}</h3>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import UserList from "../UserList";
 
 interface User {
   login: string;
@@ -75,7 +76,7 @@ function App(): JSX.Element {
       {error && <></>}
       {selectedUser && <></>}
       {users.length > 0 && !selectedUser && (
-        <></>
+         <UserList users={users} handleUserClick={selectUser} />
       )}
     </div>
   );
