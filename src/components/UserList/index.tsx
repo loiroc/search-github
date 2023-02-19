@@ -1,4 +1,15 @@
-import React from 'react';
+import {
+  Box,
+  Card,
+  CardBody,
+  Divider,
+  Grid,
+  GridItem,
+  Heading,
+  Image,
+  Text,
+} from "@chakra-ui/react";
+import React from "react";
 
 interface User {
   id?: number;
@@ -14,22 +25,25 @@ interface Props {
 
 const UserList: React.FC<Props> = ({ users, handleUserClick }) => {
   return (
-    <div>
-      <h2>Search Results:</h2>
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>
-            <a href="#" onClick={() => handleUserClick(user.login)}>
-              <img src={user.avatar_url} alt={user.login} />
-              <div>
-                <h3>{user.login}</h3>
-                <p>{user.html_url}</p>
-              </div>
-            </a>
-          </li>
+      <Grid templateColumns={'repeat(5, 1fr)'} templateRows={'auto'} gap={5} m={5}>
+        {users.map((user) => (
+          <GridItem
+            as={Card}
+            maxW="sm"
+            key={user.id}
+            onClick={() => handleUserClick(user.login)}
+            _hover={{ cursor: "pointer" }}
+          >
+            <CardBody>
+              <Image src={user.avatar_url} alt={user.login} borderRadius="lg" />
+
+              <Text>{user.login}</Text>
+              <Text>{user.html_url}</Text>
+            </CardBody>
+            <Divider />
+          </GridItem>
         ))}
-      </ul>
-    </div>
+      </Grid>
   );
 };
 
