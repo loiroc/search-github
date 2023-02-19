@@ -3,6 +3,7 @@ import axios from "axios";
 import UserList from "../UserList";
 import UserDetails from "../UserDetails";
 import Error from "../Error";
+import { Box, Button, Heading, Input } from "@chakra-ui/react";
 
 interface User {
   login: string;
@@ -22,6 +23,7 @@ function App(): JSX.Element {
   const [query, setQuery] = useState<string>("");
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<UserDetails | null>(null);
+  const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const searchUsers = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,10 +46,12 @@ function App(): JSX.Element {
         `https://api.github.com/users/${username}`
       );
       setSelectedUser(response.data);
+      setIsModalOpened(true);
       setError(null);
     } catch (error) {
       setError("Não foi possível encontrar informações deste usuário.");
       setSelectedUser(null);
+      setIsModalOpened(false);
     }
   };
 
@@ -59,28 +63,28 @@ function App(): JSX.Element {
   };
 
   return (
-    <div className="App">
-      <h1>Pesquisa de Usuários do Github</h1>
+    <Box className="App">
+      <Heading>Pesquisa de Usuários do Github</Heading>
       <form onSubmit={searchUsers}>
-        <input
+        <Input
           type="text"
           placeholder="Digite o nome do usuário do Github"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <button type="submit">Pesquisar</button>
+        <Button type="submit">Pesquisar</Button>
         {users.length > 0 && (
-          <button type="button" onClick={resetSearch}>
+          <Button type="button" onClick={resetSearch}>
             Limpar Pesquisa
-          </button>
+          </Button>
         )}
       </form>
       {error && <Error message={error} />}
-      {selectedUser && <UserDetails user={selectedUser} handleClose={resetSearch} />}
-      {users.length > 0 && !selectedUser && (
+      {selectedUser && <UserDetails user={selectedUser} handleClose={() => { setIsModalOpened(false) }} isOpen={isModalOpened} />}
+      {users.length > 0 && (
          <UserList users={users} handleUserClick={selectUser} />
       )}
-    </div>
+    </Box>
   );
 }
 
